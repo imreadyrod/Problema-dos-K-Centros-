@@ -1,6 +1,7 @@
 
 n = int(input())
 
+
 D_ant = [[]*n for i in range(n)]
 for i in range(n):
     linha = input().split(' ')
