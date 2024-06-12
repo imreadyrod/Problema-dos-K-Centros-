@@ -10,7 +10,7 @@ def read_graph_file(file_path):
 
     for line in lines[1:]:
         origin, destiny, weight = map(int, line.strip().split())
-        edges.append((origin, destiny, weight))
+        edges.append([origin, destiny, weight])
 
     return num_nodes, num_edges, k, edges
 
