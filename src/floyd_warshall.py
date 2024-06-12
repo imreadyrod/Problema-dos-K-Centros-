@@ -1,5 +1,12 @@
+import numpy as np
+INF = 9999
+
 def build_matrix(edges, num_nodes):
-    graph = [[] for _ in range(num_nodes)]
+    graph = np.full((num_nodes, num_nodes), INF)
+
+    for e in edges:
+        # print(e)
+        graph[e[0] - 1][e[1] - 1] = e[2]
 
     return graph
 
