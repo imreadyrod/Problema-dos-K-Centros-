@@ -15,7 +15,7 @@ def read_graph_file(file_path):
     return num_nodes, num_edges, k, edges
 
 if __name__ == '__main__':
-    num_nodes, num_edges, k, edges = read_graph_file('./entradas/pmed10.txt')
+    num_nodes, num_edges, k, edges = read_graph_file('src\entradas\pmed1.txt')
 
     print("Number of nodes:", num_nodes)
     print("Number of edges:", num_edges)
