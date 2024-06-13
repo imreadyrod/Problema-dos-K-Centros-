@@ -5,8 +5,10 @@ def build_matrix(edges, num_nodes):
     graph = np.full((num_nodes, num_nodes), INF)
 
     for e in edges:
-        # print(e)
         graph[e[0] - 1][e[1] - 1] = e[2]
+
+    for i in range(num_nodes):
+        graph[i][i] = 0
 
     return graph
 
@@ -17,7 +19,6 @@ def floyd_warshall(graph):
         for i in range(number_nodes):
             for j in range(number_nodes):
                 graph[i][j] = min(graph[i][j],graph[i][k] + graph[k][j])
-
 
 '''
 Entrada de exemplo
