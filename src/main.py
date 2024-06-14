@@ -7,3 +7,6 @@ if __name__ == '__main__':
     graph = build_matrix(edges, num_nodes)
     floyd_warshall(graph)
     clusters = kmeans(graph, k)
+
+    for key, cluster in clusters.items():
+        print(f'Cluster {key}: {cluster}')

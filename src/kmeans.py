@@ -4,42 +4,22 @@ import random
 INF = 9999
 
 def kmeans(graph, k):
+    num_nodes = len(graph)
+
     # incializa centroids
-    centroids = [random.randint(0, len(graph)) for _ in range(k)]
+    centroids = random.sample(range(num_nodes), k)
 
-    clusters = {}
-    for c in centroids:
-        clusters[c] = []
-    print(clusters)
+    clusters = {i: [] for i in range(k)}
 
-    for centroid in centroids:
+    for i in range(num_nodes):
+        min_dist = INF
+        clossest_centroid = None
 
-        for node 
+        for j in range(k):
+            if graph[i][centroids[j]] < min_dist:
+                min_dist = graph[i][centroids[j]]
+                clossest_centroid = j
+        clusters[clossest_centroid].append(i)
 
-    for i, node in enumerate(graph):
-        smaller = INF
-        index = -1
-        for j, c in enumerate(centroids):
-            if node[c] < smaller:
-                index = j
-                smaller = node[c]
-        
-        clusters[centroids[index]].append({'node': i, 'dist': smaller})
-        print(len(clusters))
-    print(len(clusters))
-
-    # for i, v in enumerate(graph):
-
-    #     smaller = INF
-    #     index = -1
-
-    #     for j, c in enumerate(centroids):
-    #         if v[c] < smaller:
-    #             smaller = v[c]
-    #             index = j
-
-    #     clusters[index].append({'node': i, 'dist': smaller})
-    
-    # return np.sort(centroids, axis=1), np.sort(clusters, axis=1),
     return clusters
 
