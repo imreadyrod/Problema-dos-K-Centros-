@@ -5,7 +5,15 @@ def build_matrix(edges, num_nodes):
     graph = np.full((num_nodes, num_nodes), INF)
 
     for e in edges:
-        graph[e[0] - 1][e[1] - 1] = e[2]
+        is_inf = graph[e[0] - 1][e[1] - 1] == INF
+        if is_inf:
+            graph[e[0] - 1][e[1] - 1] = e[2]
+            graph[e[1] - 1][e[0] - 1] = e[2]
+            # ensure symetri
+        else:
+            graph[e[0] - 1][e[1] - 1] += e[2]
+            graph[e[1] - 1][e[0] - 1] += e[2]
+
 
     for i in range(num_nodes):
         graph[i][i] = 0
