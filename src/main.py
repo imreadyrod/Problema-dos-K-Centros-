@@ -1,13 +1,21 @@
 from read_file import read_graph_file
 from floyd_warshall import build_matrix, floyd_warshall
 from kmeans import kmeans
+from brute_force import brute_force
 
 if __name__ == '__main__':
     num_nodes, num_edges, k, edges = read_graph_file('src\entradas\pmed1.txt')
     graph = build_matrix(edges, num_nodes)
     floyd_warshall(graph)
-    clusters, radius = kmeans(graph, k)
 
+    # execute kmeans
+    clusters, radius = kmeans(graph, k)
+    for key, cluster in clusters.items():
+        print(f'Cluster {key}: {cluster}')
+    print(radius)
+
+    # execute brute_force
+    clusters, radius = brute_force(graph, k)
     for key, cluster in clusters.items():
         print(f'Cluster {key}: {cluster}')
     print(radius)

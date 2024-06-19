@@ -4,6 +4,7 @@ INF = 9999
 def build_matrix(edges, num_nodes):
     graph = np.full((num_nodes, num_nodes), INF)
 
+    # insert the values inside the matrix, edge by edge
     for e in edges:
         is_inf = graph[e[0] - 1][e[1] - 1] == INF
         if is_inf:
@@ -15,6 +16,7 @@ def build_matrix(edges, num_nodes):
             graph[e[1] - 1][e[0] - 1] += e[2]
 
 
+    # put zeros in the main diagonal
     for i in range(num_nodes):
         graph[i][i] = 0
 
