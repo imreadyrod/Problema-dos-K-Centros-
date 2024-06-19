@@ -6,7 +6,8 @@ if __name__ == '__main__':
     num_nodes, num_edges, k, edges = read_graph_file('src\entradas\pmed1.txt')
     graph = build_matrix(edges, num_nodes)
     floyd_warshall(graph)
-    clusters = kmeans(graph, k)
+    clusters, radius = kmeans(graph, k)
 
     for key, cluster in clusters.items():
         print(f'Cluster {key}: {cluster}')
+    print(radius)
