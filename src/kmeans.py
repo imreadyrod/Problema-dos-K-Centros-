@@ -1,6 +1,5 @@
 import numpy as np
 import random
-import time
 
 INF = 9999
 
@@ -71,8 +70,6 @@ def kmeans(graph, k):
     # set the first best cluster as the cluster
     best_clusters = clusters
 
-    # penalty will be a break point
-    penalitys = 0
     while True:
         # change the centroid for the node closest to the center of the cluster
         new_centroids = update_centroids(graph, clusters)
@@ -84,11 +81,9 @@ def kmeans(graph, k):
         new_radius = find_radius(graph, clusters)
 
         # stop the kmeans to loop infinity
-        if new_radius >= radius:
-            # if the solution is worse, increment penalty
-            penalitys += 1
-            if penalitys == k:
-                break
+        if set(new_centroids) == set(centroids):
+            # if the solution does not change break
+            break
         else:
             # if the soluction is better, set it as the better solution
             best_clusters = clusters
