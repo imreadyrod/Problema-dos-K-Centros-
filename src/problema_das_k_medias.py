@@ -59,11 +59,7 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
             # A criação da matriz deve ter n_vertices linhas e n_arestas colunas, sendo que à princípio
             #  todos os índices terão valor igual à constante "infinito" definida no início do arquivo
             grafo = np.full((n_vertices,n_vertices),INFINITO)
-
-
-        with open(caminho_do_arquivo,'r') as arquivo:
-    
-
+            
             # No bloco a seguir o restante das linhas (após a primeira) são processadas 
             # e o vértice de origem o vértice de destino e a distância entre eles é guardada na matriz "grafo"
             # Aqui deve-se inicializar a distância, ou seja, a posição da linha do vértice para ele mesmo como 0
@@ -75,7 +71,7 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
                 destino = int(origem_destino_distancia[1])
                 distancia = int(origem_destino_distancia[2])
                 grafo[origem][destino] = distancia
-                grafo[origem][origem] = 0
+                grafo[origem][origem] = 0    
             
 
     #Após a construção do grafo, via matriz, irei aplicar o algoritmo de Floyd-Warshall. 
