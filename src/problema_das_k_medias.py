@@ -97,7 +97,8 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
         
     
     # Para saber a distancia do vértice i até o vértice j, ou seja, o seu custo, deve-se utilizar a matriz
-    # matriz_caminhos_iteracao_atual. Um exemplo: Distância para ir do vértice 2 até o vértice 6:
+    # matriz_caminhos_iteracao_atual. Esta matriz ao final do programa irá conter a distâncias de todos os vértices 
+    # Um exemplo: Distância para ir do vértice 2 até o vértice 6:
     # distância = matriz_caminhos_iteracao_atual[2][6]
 
     # Após completar o processamento do grafo teremos em mãos a matriz com a distância de todos vértices para todos os outros vértices.
