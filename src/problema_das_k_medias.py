@@ -48,7 +48,7 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
                 distancia = origem_destino_distancia[2]
                 grafo[origem][destino] = distancia
                 grafo[origem][origem] = 0
-
+            
 
     #Após a construção do grafo, via matriz, irei aplicar o algoritmo de Floyd-Warshall. 
     #Assim consigo as distância de todos para todos os vértices.
@@ -101,29 +101,56 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
     # Um exemplo: Distância para ir do vértice 2 até o vértice 6:
     # distância = matriz_caminhos_iteracao_atual[2][6]
 
-    # Após completar o processamento do grafo teremos em mãos a matriz com a distância de todos vértices para todos os outros vértices.
+    # A proxima etapa do código consiste em realizar todas as combinações possíveis de n cluster em t numero de vértices.
+    # Desta maneira, para um conjunto de 100 vértices, todas as combinações possíveis para 5 clusters resulta em 75.287.520 
+    # de conjuntos possíveis
+    def encontre_mais_proximo(elemento,lista):
+        return min(lista, key=lambda x:abs(x-elemento))
     
-    ############# POSSUI SOLUÇÃO MELHOR, EXPLICADA PELO PROFESSOR NO DIA 26/06 EM AULA######################################
-    ############# DESCRIÇÃO NO FIM DO ARQUIVO ################################################################
-    # O problema da K-média consiste em receber um conjunto de entrada e 
-    # realizar subdivisões de acordo com o número de clusters .
-    # Então, por exemplo, considerando o primeiro arquivo "Problema-dos-K-Centros-\docs\entradas\pmed1.txt"
-    # A especificação é a seguinte:  vértices = 100; arestas = 200; nº de clusters = 5. 
-    # A resposta esperada, que pode ser encontrada em "Problema-dos-K-Centros-\docs\resposta\resposta.txt" , 
-    # Determina que o conjunto irá possuir 5 clusters e o raio para cada cluster é 127.
-    # Ou seja, devo realizar a verificação de todas as combinações possíveis de 5 em 100. 
-    # Após ter em mãos todas as combinações, irei realizar a seguinte operação.
-    # Tomando um conjunto aleatório das combinações. Este conjunto terá 20 vértices. 
-    # Dentro dos 20 vértices, 1 deles deverá ser o centro. Porém, qual centro sera o determinante para que o raio seja 127?
-    # Dito isto, terei que variar o centro dentro do subconjunto e verificar qual vértice centroíde retorna como raio o valor de 127.
-    # O raio é a distância do centro até o elemento mais distante daquele cluster.
-    # Sendo assim, caso eu realize a subdivisão e não encontre o valor de 127 para todos os possíveis centróides deste subconjunto
-    # Esse conjunto será descartado. E o próximo será processado como se fosse uma fila
 
-    # Sendo assim, o próximo passo é realizar todas as combinações possíveis guardar todos os conjuntos possíveis em uma estrutura do tipo fila 
-     
+    numeros = list(range(n_vertices))
+    for combinacao in combinations(numeros,n_clusters):
+        # A primeira combinação irá conter os centróides possíveis
+        # O próximo passo é:
+        # Com a lista dos centróides em mãos, devo adicionar os vértices que estão mais próximos deste
+        # Então:
+        #transformando a tupla em uma lista
+        centroides_selecionados = [elemento for elemento in combinacao]
+        # Criando uma lista para conter os elemento do cluster
+        clusters = [elemento for elemento in centroides_selecionados]
+        
+        raio_clusters = [0 for elemento in centroides_selecionados]
+        # Adicionando o valor 0 para inicializar o raio do cluster 
+        #Iterando sobre os vértices 
+        for vertice in n_vertices:
+            # Por exemplo, para o vértice 1, devo saber qual a menor distância entre os centróides selecionados
+            # Assim tenho que verificar cada distância em relação ao centróide e pegar a mínima
+            for centroide in centroides_selecionados:
+                # Aqui busco a distância do vértice atual para o centróide selecionado
+                distancia_temporaria = matriz_caminhos_iteracao_atual[centroide][vertice]
+                distancia_minima = INFINITO
+                # Se a distancia da iteração for menor do que a distancia minima 
+                # A distancia minima é atualizada em conjunto com o centroide
+                if distancia_temporaria < distancia_minima:
+                    distancia_minima = distancia_temporaria
+                    centroide_do_vertice = centroide
+            # Após a iteração irei saber em qual cluster esse vértice pertence
+            # Agora quero adicionar esse vértice no cluster contindo na na lista de listas inicializada acima "clusters"
+            posicao_do_centroide_na_lista = clusters.index(centroide)
+            # Após encontrar a posição do centróide
+            # Devo adicionar a distancia máxima, ou seja, o raio para aquele cluster na lista dos raios
+            raio_temporario = distancia_minima
+            if raio_clusters[posicao_do_centroide_na_lista] <= raio_temporario:
+                raio_clusters[posicao_do_centroide_na_lista] = raio_temporario
 
+            #Então após todo o processamento querendo saber apenas qual o maior raio dentre todos os clusters
+            # Ou seja o maior valor dentro da lista raio_clusters.
+            #ao final o raio da solução é o maior raio entre esses clusters
+            maior_raio = max(raio_clusters)
 
+        #Devo guardar a combinação para no final conferir qual foi a combinação que gerou o resultado esperado
+        combinacao_temporaria = combinacao
+        raio_solucao = maior_raio
 
 
 
@@ -138,4 +165,4 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
 # centroide como vertice 7, vertices 8 é mais proximo.... 
 # o raio daquele cluster é a maior distancia... por isso é interessante guardar apenas a maior distancia... entao ao final o raio da solução é o maior raio entre esses 3 clusters 
 # após gerar outra combinação de vértices realizar o mesmo procedimento e retirar o raio da solução...
-# após isso 
+# após isso comparar com o raio da combinação anterior, aquele que for mais proximo do resultado é a combinação que fica
