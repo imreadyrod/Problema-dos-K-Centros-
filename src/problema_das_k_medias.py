@@ -7,8 +7,9 @@ from itertools import combinations
 INFINITO = 999999999999999999999999999999
 
 #O programa deverá acessar a pasta contendo os arquivos que possuem os dados dos grafos que serão processados
-pasta_contendo_as_entradas = "D:\Faculdade\Implementação Grafos\Problema-dos-K-Centros-\docs"
-
+pasta_contendo_as_entradas = "D:\Faculdade\Implementação Grafos\Problema-dos-K-Centros-\docs\entradas"
+pasta_contendo_as_respostas = "D:\Faculdade\Implementação Grafos\Problema-dos-K-Centros-\docs\resposta"
+nome_arquivo_resposta = "resposta.txt"
 #Com o caminho da pasta dos arquivos, o programa deverá ler cada arquivo sequencialmente
 # A linha abaixo realiza a leitura de arquivo a arquivo 
 for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
@@ -34,7 +35,9 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
             #  todos os índices terão valor igual à constante "infinito" definida no início do arquivo
             grafo = np.full((n_vertices,n_vertices),INFINITO)
 
-            
+
+        with open(caminho_do_arquivo,'r') as arquivo:
+    
 
             # No bloco a seguir o restante das linhas (após a primeira) são processadas 
             # e o vértice de origem o vértice de destino e a distância entre eles é guardada na matriz "grafo"
@@ -149,8 +152,12 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
             maior_raio = max(raio_clusters)
 
         #Devo guardar a combinação para no final conferir qual foi a combinação que gerou o resultado esperado
+        raio_solucao = 0
+
+        if if abs(target - val1) < abs(target - val2) else val2
+
         combinacao_temporaria = combinacao
-        raio_solucao = maior_raio
+
 
 
 
