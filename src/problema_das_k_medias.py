@@ -4,14 +4,13 @@ from itertools import combinations
 
 # para aqueles vértices que não possuem ligação direta para algum dado outro vértice
 # a distância estipulada entre eles será infinito.
-INFINITO = np.Infinity
+INFINITO = np.inf
 
 #O programa deverá acessar a pasta contendo os arquivos que possuem os dados dos grafos que serão processados
-pasta_contendo_as_entradas = "D:\Faculdade\Implementação Grafos\Problema-dos-K-Centros-\docs\entradas"
-pasta_contendo_as_respostas = "D:\Faculdade\Implementação Grafos\Problema-dos-K-Centros-\docs\resposta"
+pasta_contendo_as_entradas = r"D:\\Faculdade\\Implementação Grafos\\Problema-dos-K-Centros-\\docs\\entradas"
+pasta_contendo_as_respostas = r"D:\\Faculdade\\Implementação Grafos\\Problema-dos-K-Centros-\\docs\\resposta"
 
 nome_arquivo_resposta = "resposta.txt"
-
 #Com o caminho da pasta dos arquivos, o programa deverá ler cada arquivo sequencialmente
 # A linha abaixo realiza a leitura de arquivo a arquivo 
 for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
@@ -51,9 +50,9 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
 
         
         with open(caminho_do_arquivo,'r') as arquivo:
-            instrucoes = arquivo.readline().split(" ")
-            n_vertices = int(instrucoes[0])
-            n_arestas = int(instrucoes[1])
+            instrucoes = arquivo.readline().split()
+            n_vertices = int(instrucoes[0])+1
+            n_arestas = int(instrucoes[1])+1
             n_clusters = int(instrucoes[2])
             
             # A criação da matriz deve ter n_vertices linhas e n_arestas colunas, sendo que à princípio
@@ -66,7 +65,7 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
             # E caso o vértice não possua aresta para um outro vértice o valor será infinito, como foi definido anteriormente
     
             for linha in arquivo:    
-                origem_destino_distancia = linha.split(" ")
+                origem_destino_distancia = linha.split()
                 origem = int(origem_destino_distancia[0])
                 destino = int(origem_destino_distancia[1])
                 distancia = int(origem_destino_distancia[2])
@@ -133,10 +132,12 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
     
 
     numeros = list(range(n_vertices))
+    melhor_combinacao = [0,0,0,0]
+    raio_resposta = 0
     for combinacao in combinations(numeros,n_clusters):
         # A primeira combinação irá conter os centróides possíveis
         # O próximo passo é:
-        # Com a lista dos centróides em mãos, devo adicionar os vértices que estão mais próximos deste
+        # Com a lista dos centróides em mãos, devo adicionar os vértices que estão mais próximos deste centroide no cluster
         # Então:
         #transformando a tupla em uma lista
         centroides_selecionados = [elemento for elemento in combinacao]
@@ -149,17 +150,17 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
         for vertice in n_vertices:
             # Por exemplo, para o vértice 1, devo saber qual a menor distância entre os centróides selecionados
             # Assim tenho que verificar cada distância em relação ao centróide e pegar a mínima
+            distancia_minima = INFINITO
+
             for centroide in centroides_selecionados:
                 # Aqui busco a distância do vértice atual para o centróide selecionado
                 distancia_temporaria = matriz_caminhos_iteracao_atual[centroide][vertice]
-                distancia_minima = INFINITO
                 # Se a distancia da iteração for menor do que a distancia minima 
                 # A distancia minima é atualizada em conjunto com o centroide
-                if distancia_temporaria < distancia_minima:
+                if distancia_temporaria <= distancia_minima:
                     distancia_minima = distancia_temporaria
                     centroide_do_vertice = centroide
             # Após a iteração irei saber em qual cluster esse vértice pertence
-            # Agora quero adicionar esse vértice no cluster contindo na na lista de listas inicializada acima "clusters"
             posicao_do_centroide_na_lista = clusters.index(centroide)
             # Após encontrar a posição do centróide
             # Devo adicionar a distancia máxima, ou seja, o raio para aquele cluster na lista dos raios
@@ -167,22 +168,27 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
             if raio_clusters[posicao_do_centroide_na_lista] <= raio_temporario:
                 raio_clusters[posicao_do_centroide_na_lista] = raio_temporario
 
-            #Então após todo o processamento querendo saber apenas qual o maior raio dentre todos os clusters
-            # Ou seja o maior valor dentro da lista raio_clusters.
-            #ao final o raio da solução é o maior raio entre esses clusters
-            maior_raio = max(raio_clusters)
+        #Então após todo o processamento queremos saber apenas qual o maior raio dentre todos os clusters
+        # Ou seja o maior valor dentro da lista raio_clusters.
+        #ao final o raio da solução é o maior raio entre esses clusters
+        maior_raio = max(raio_clusters)
 
         #Devo guardar a combinação para no final conferir qual foi a combinação que gerou o resultado mais próximo do
         #esperado
         #Aqui estou comparando a resposta do raio anterior com o raio atual
         alvo = raio_solucao
-        raio_anterior = 
+        combinacao_temporaria = melhor_combinacao
+        raio_anterior = raio_resposta
         raio_atual = maior_raio
         if abs(alvo - raio_anterior) < abs(alvo - raio_atual):
-                combinacao_resposta = combinacao
-        else:
             combinacao_resposta = combinacao_temporaria
-
+            raio_resposta = raio_anterior
+        else:
+            combinacao_resposta = combinacao
+            raio_resposta = raio_atual
+        
+        
+        
 
 
 
