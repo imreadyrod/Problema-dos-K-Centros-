@@ -103,7 +103,7 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
     matriz_caminhos_iteracao_atual = [[0]*n_vertices for vertice in range(n_vertices)]
 
     for linha in range (n_vertices):
-        for coluna in range(n_arestas):
+        for coluna in range(n_vertices):
             for iteracao in range(n_vertices):
                 if matriz_distancia_iteracao_anterior[coluna][iteracao] <= matriz_distancia_iteracao_anterior[coluna][linha] + matriz_distancia_iteracao_anterior[linha][iteracao]:
                     matriz_distancias_iteracao_atual[coluna][iteracao] = matriz_distancia_iteracao_anterior[coluna][iteracao]
