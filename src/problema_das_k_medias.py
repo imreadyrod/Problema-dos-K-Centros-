@@ -4,19 +4,42 @@ from itertools import combinations
 
 # para aqueles vértices que não possuem ligação direta para algum dado outro vértice
 # a distância estipulada entre eles será infinito.
-INFINITO = 999999999999999999999999999999
+INFINITO = np.Infinity
 
 #O programa deverá acessar a pasta contendo os arquivos que possuem os dados dos grafos que serão processados
 pasta_contendo_as_entradas = "D:\Faculdade\Implementação Grafos\Problema-dos-K-Centros-\docs\entradas"
 pasta_contendo_as_respostas = "D:\Faculdade\Implementação Grafos\Problema-dos-K-Centros-\docs\resposta"
+
 nome_arquivo_resposta = "resposta.txt"
+
 #Com o caminho da pasta dos arquivos, o programa deverá ler cada arquivo sequencialmente
 # A linha abaixo realiza a leitura de arquivo a arquivo 
 for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
+    
     # Os arquivos disponibilizados estão no formato txt
     #primeiro deverá chegar se o fim do arquivo termina com .txt
     if nome_do_arquivo.endswith('.txt'):
         
+        
+        # A abertura do arquivo funcionára como um contador, pois devo também abrir o arquivo de resposta
+        # e retirar o raio da solução para determinada instância
+        conta_arquivos = 1
+
+        #Aqui pego o nome do arquivo contendo as respostas e a pasta onde esse arquivo está e realizo
+        # a abertura desse arquivo.
+        caminho_do_arquivo_resposta = os.path.join(pasta_contendo_as_respostas,nome_arquivo_resposta)
+
+        with open(caminho_do_arquivo_resposta,'r') as arquivo_resposta:
+            #Lendo todas as linhas do arquivo resposta
+
+            instrucoes_resposta = arquivo_resposta.readlines()
+
+            #Pegando as respostas para uma determinada instancia
+            resposta_da_instancia = instrucoes_resposta[conta_arquivos-1].split()
+
+            #Pegando qual é a solucao daquela instancia
+            raio_solucao = int(resposta_da_instancia[-1])
+
         #se positivo o caminho do arquivo a ser processado será a junção da pasta com o nome do arquivo
         caminho_do_arquivo = os.path.join(pasta_contendo_as_entradas,nome_do_arquivo)
         # o nome do arquivo processado deverá ser salvo para que, ao final, o programa grave os arquivos txt com os resultados do processamento 
@@ -25,11 +48,13 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
         # A operação abaixo realiza a leitura do arquivo para criar a estrutura do grafo
         # A primeira operação é a leitura da primeira linha para determinar o número de vértices,
         #  número de arestas e o número de clusters. Assim a matriz "grafo" é inicializada
+
+        
         with open(caminho_do_arquivo,'r') as arquivo:
             instrucoes = arquivo.readline().split(" ")
-            n_vertices = instrucoes[0]
-            n_arestas = instrucoes[1]
-            n_clusters = instrucoes[2]
+            n_vertices = int(instrucoes[0])
+            n_arestas = int(instrucoes[1])
+            n_clusters = int(instrucoes[2])
             
             # A criação da matriz deve ter n_vertices linhas e n_arestas colunas, sendo que à princípio
             #  todos os índices terão valor igual à constante "infinito" definida no início do arquivo
@@ -46,9 +71,9 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
     
             for linha in arquivo:    
                 origem_destino_distancia = linha.split(" ")
-                origem = origem_destino_distancia[0]
-                destino = origem_destino_distancia[1]
-                distancia = origem_destino_distancia[2]
+                origem = int(origem_destino_distancia[0])
+                destino = int(origem_destino_distancia[1])
+                distancia = int(origem_destino_distancia[2])
                 grafo[origem][destino] = distancia
                 grafo[origem][origem] = 0
             
@@ -124,7 +149,7 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
         
         raio_clusters = [0 for elemento in centroides_selecionados]
         # Adicionando o valor 0 para inicializar o raio do cluster 
-        #Iterando sobre os vértices 
+        # Iterando sobre os vértices 
         for vertice in n_vertices:
             # Por exemplo, para o vértice 1, devo saber qual a menor distância entre os centróides selecionados
             # Assim tenho que verificar cada distância em relação ao centróide e pegar a mínima
@@ -151,12 +176,16 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
             #ao final o raio da solução é o maior raio entre esses clusters
             maior_raio = max(raio_clusters)
 
-        #Devo guardar a combinação para no final conferir qual foi a combinação que gerou o resultado esperado
-        raio_solucao = 0
-
-        if if abs(target - val1) < abs(target - val2) else val2
-
-        combinacao_temporaria = combinacao
+        #Devo guardar a combinação para no final conferir qual foi a combinação que gerou o resultado mais próximo do
+        #esperado
+        #Aqui estou comparando a resposta do raio anterior com o raio atual
+        alvo = raio_solucao
+        raio_anterior = 
+        raio_atual = maior_raio
+        if abs(alvo - raio_anterior) < abs(alvo - raio_atual):
+                combinacao_resposta = combinacao
+        else:
+            combinacao_resposta = combinacao_temporaria
 
 
 
