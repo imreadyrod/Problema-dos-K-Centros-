@@ -82,7 +82,7 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
     # De início a estrutura "matriz_com_caminhos_iteracao_anterior" guarda 
     # os vértices de destino para um determinado vértice de origem
     # Ela irá guardar os melhores caminhos iteração a iteração
-    matriz_com_caminhos_iteracao_anterior = [[-1]*n_vertices for vertice in range(n_arestas)]
+    matriz_com_caminhos_iteracao_anterior = [[INFINITO]*n_vertices for vertice in range(n_vertices)]
 
     
     # O código abaixo itera entre todos os vértice para todos os outros 
