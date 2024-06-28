@@ -187,6 +187,7 @@ for nome_do_arquivo in os.listdir(pasta_contendo_as_entradas):
             combinacao_resposta = combinacao
             raio_resposta = raio_atual
         
+        print(f'Arquivo: {nome_do_grafo}')
         print(f'melhor combinacao: {combinacao_resposta}')
         print(f'raio da combinacao: {raio_resposta}')
 
