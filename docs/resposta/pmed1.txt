@@ -1,0 +1,4 @@
+resposta do arquivo: pmed1.txt
+melhor combinacao: [2, 10, 21, 34, 53]
+raio da combinacao: 210.0
+tempo de processamento16497.14419078827
